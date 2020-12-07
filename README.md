@@ -10,3 +10,4 @@ A clone of Facebook's Instagram app where you can login/register, create new pos
 -   [ ] User can follow other users
 -   [ ] User can see other users posts (people who the user follows)
 -   [ ] User can see a global feed of images
+-   [ ] Admin page to delete and create users and posts
