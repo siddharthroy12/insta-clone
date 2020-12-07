@@ -12,22 +12,22 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        require: true
+        required: true
     },
     following: [{
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        require: true
+        required: true
     }],
     followers: [{
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        require: true
+        required: true
     }],
     posts: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Post',
-        require: true
+        required: true
     }],
     isAdmin: {
         type: Boolean,

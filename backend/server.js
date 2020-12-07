@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const { notFound, errorHandler } = require('./middlewares/errorMiddlewares')
 const connectDB = require('../config/db')
 const userRoutes = require('./routes/usersRoutes')
+const postRoutes = require('./routes/postRoutes')
 
 require('dotenv').config()
 
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json())
 
 app.use('/api/users', userRoutes)
+app.use('/api/posts', postRoutes)
 
 app.use(notFound)
 app.use(errorHandler)

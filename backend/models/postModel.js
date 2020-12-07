@@ -3,18 +3,18 @@ const mongoose = require('mongoose')
 const commentSchema = mongoose.Schema({
     body: {
         type: String,
-        require: true
+        required: true
     },
-    username: {
+    user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        require: true
+        required: true
     },
     likes: [
         {
             type: mongoose.Schema.ObjectId,
             ref: 'User',
-            require: true
+            required: true
         }
     ]
 })
@@ -22,25 +22,25 @@ const commentSchema = mongoose.Schema({
 const postSchema = mongoose.Schema({
     body: {
         type: String,
-        require: true
+        required: true
     },
     image: {
         type: String,
         default: ""
     },
-    username: {
+    user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        require: true
+        required: true
     },
     likes: [
         {
             type: mongoose.Schema.ObjectId,
             ref: 'User',
-            require: true
+            required: true
         }
     ],
     comments: [commentSchema],
 })
 
-module.exports = Post = mongoose.Model('Post', postSchema)
+module.exports = Post = mongoose.model('Post', postSchema)
