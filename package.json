@@ -1,0 +1,25 @@
+{
+  "name": "insta-clone",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node  backend/server",
+    "server": "nodemon backend/server"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  },
+  "author": "Siddharth Roy <siddharthroy36912@gmail.com>"
+}
