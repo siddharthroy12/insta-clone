@@ -11,9 +11,11 @@ A clone of Facebook's Instagram app where you can login/register, create new pos
 > ```yarn run server```
 
 ## Create .env file in root director and fill these fileds
-> ```NODE_ENV = development```
-> ```DB_URI = your mongodb uri here```
-> ```JWT_SECRET = your secret key here```
+> `NODE_ENV = development`
+
+> `DB_URI = your mongodb uri here`
+
+> `JWT_SECRET = your secret key here`
 
 ## Todo
 
