@@ -26,7 +26,7 @@ app.use('/uploads', express.static('/uploads'))
 
 if (process.env.NODE_ENV === 'production') {
     app.use('/frontend/build')
-    app.get('*', (req, res) => res.sendFile('/fronted/build/index.html'))
+    app.get('*', (req, res) => res.sendFile('/frontend/build/index.html'))
 } else {
     app.get('/', (req, res) => {
         res.send('API Server is running...')
