@@ -7,7 +7,6 @@ const generateToken = require('../utils/gernerateToken')
 // @access Public
 const getUsers = asyncHandler(async (req, res) => {
     const users = await User.find({}).select('username isAdmin following followers posts profilePic')
-    console.log(users)
     res.json(users)
 })
 
