@@ -22,11 +22,11 @@ app.use('/api/users', userRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/upload', uploadRoute)
 
-app.use('/uploads', express.static('/uploads'))
+app.use('/uploads', express.static('uploads'))
 
 if (process.env.NODE_ENV === 'production') {
-    app.use('/frontend/build')
-    app.get('*', (req, res) => res.sendFile('/frontend/build/index.html'))
+    app.use('frontend/build')
+    app.get('*', (req, res) => res.sendFile('frontend/build/index.html'))
 } else {
     app.get('/', (req, res) => {
         res.send('API Server is running...')

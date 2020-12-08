@@ -12,6 +12,8 @@ node_modules/
 # production
 /frontend/build
 
+frontend/.eslintcache
+
 # misc
 .DS_Store
 .env
