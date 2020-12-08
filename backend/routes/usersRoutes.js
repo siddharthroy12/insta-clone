@@ -16,6 +16,6 @@ const router = express.Router()
 router.route('/').get(getUsers).put(protect, updateUserProfile).delete(protect, deleteUser)
 router.post('/register', registerUser)
 router.post('/login', loginUser)
-router.route('/:id').get(getUserProfile).delete(protect, admin, banUser).put(updateUser)
+router.route('/:id').get(getUserProfile).delete(protect, admin, banUser).put(protect, admin,updateUser)
 
 module.exports =  router
