@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Post = require('../models/postModel')
+const User = require('../models/userModel')
 
 // @desc Get all posts
 // @route GET /api/posts
@@ -42,7 +43,11 @@ const createPost = asyncHandler(async (req, res) => {
         user: req.user._id
     })
 
-    await newPost.save()
+    const user = await User.findById(req.user._id)
+    console.log(req.user._id)
+    user.posts.push(newPost._id)
+    await user.save()
+
     res.json(newPost)
 })
 
@@ -61,6 +66,9 @@ const deletePost = asyncHandler(async (req, res) => {
             res.status(401)
             throw new Error('Not authorized')
         } else {
+            const user = await User.findById(req.user._id)
+            user.posts = user.posts.filter(UserPost => UserPost.toString() !== post._id.toString())
+            await user.save()
             await post.remove()
             res.json({message: 'Post removed'})
         }
@@ -190,6 +198,11 @@ const removePost = asyncHandler(async (req, res) => {
         res.status(404)
         throw new Error('Post not found')
     } else {
+        const user = await User.findById(post.user)
+        if (user) {
+            user.posts = user.posts.filter(UserPost => UserPost.toString() !== post._id.toString())
+            await user.save()
+        }
         await post.remove()
         res.json({message: 'Post removed'})
     }

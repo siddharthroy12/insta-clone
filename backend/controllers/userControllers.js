@@ -153,6 +153,34 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc Follow a User
+// @route POST /api/users/:id
+// @access Private/Admin
+const followUser = asyncHandler(async (req, res) => {
+    const userToFollow = await User.findById(req.params.id)
+    const user = await User.findById(req.user._id)
+
+    if (!userToFollow) {
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+    const follow = userToFollow.followers.find(follower => follower.toString() === req.user._id.toString())
+    
+    if (!follow) {
+        userToFollow.followers.push(req.user._id)
+        user.followings.push(userToFollow._id)
+    } else {
+        userToFollow.followers = userToFollow.followers.filter(follower => follower.toString() !== req.user._id.toString())
+        user.followings = user.followings.filter(following => following.toString() !== userToFollow._id.toString() )
+    }
+
+    await userToFollow.save()
+    const savedUser = await user.save()
+
+    res.json(savedUser)
+})
+
 module.exports = {
     registerUser,
     loginUser,
@@ -161,5 +189,6 @@ module.exports = {
     updateUserProfile,
     deleteUser,
     banUser,
-    updateUser
+    updateUser,
+    followUser
 }
