@@ -1,7 +1,18 @@
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap'
 import { BsFillImageFill } from 'react-icons/bs'
 
-const HomeScreen = () => {
+const HomeScreen = ({history}) => {
+    const redirect = '/login'
+    const userLogin = useSelector(state => state.userLogin)
+    const { loading, error, userInfo } = userLogin
+
+    useEffect(() => {
+        if (!userInfo) {
+            history.push(redirect)
+        }
+    }, [history, userInfo, redirect])
 
     return (
         <Container>

@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Navbar, Container, Nav, Image, ListGroup } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { AiFillHome } from 'react-icons/ai'
 import { FaUsers } from 'react-icons/fa'
@@ -9,6 +10,18 @@ import { HiLogout } from 'react-icons/hi'
 
 const Header = () => {
     const [dropdownIsOpen, setDropdownIsOpen] = useState(false)
+    const [showMenu, setShowMenu] = useState(true)
+    
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    useEffect(() => {
+        if (!userInfo) {
+            setShowMenu(false)
+        } else {
+            setShowMenu(true)
+        }
+    }, [userInfo, setShowMenu])
 
     function toggleDropdown() {
         if (dropdownIsOpen) {
@@ -24,7 +37,8 @@ const Header = () => {
                 <LinkContainer to='/'>
                     <Navbar.Brand>Instaclone</Navbar.Brand>
                 </LinkContainer>
-                <Nav>
+                {showMenu && (
+                    <Nav>
                     <Nav.Link><AiFillHome /></Nav.Link>
                     <Nav.Link><FaUsers /></Nav.Link>
                     <Nav.Item>
@@ -37,7 +51,8 @@ const Header = () => {
                             </ListGroup>
                         )}
                     </Nav.Item>
-                </Nav>
+                    </Nav>
+                )}
             </Container>
         </Navbar>
     )

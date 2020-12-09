@@ -15,6 +15,13 @@ const getUsers = asyncHandler(async (req, res) => {
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body
+
+    if (username.trim() === '' || email.trim() === '' || password.trim() === '') {
+        res.status(400)
+        throw new Error('Provide all fields')
+    }
+
+
     const userExist = await User.findOne({ username })
     
     if (userExist) {
