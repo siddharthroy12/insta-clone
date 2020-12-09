@@ -57,11 +57,12 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({ username })
     
     if (user && (await user.matchPassword(password))) {
+        console.log(user)
         res.json({
             _id: user._id,
             name: user.name,
             email: user.email,
-            isAdmin: user.idAdmin,
+            isAdmin: user.isAdmin,
             token: generateToken(user._id)
         })
     } else {
@@ -91,6 +92,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
+        user.bio = req.body.bio || user.bio
+        user.website = req.body.website || user.website
         if (req.body.password) {
             user.password = req.body.password
         }

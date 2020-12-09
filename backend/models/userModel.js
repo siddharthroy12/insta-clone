@@ -14,6 +14,14 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    bio: {
+        type: String,
+        default: ""
+    },
+    website: {
+        type: String,
+        default: ""
+    },
     followings: [{
         type: mongoose.Schema.ObjectId,
         ref: 'User',
@@ -25,6 +33,11 @@ const userSchema = mongoose.Schema({
         required: true
     }],
     posts: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Post',
+        required: true
+    }],
+    saved: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Post',
         required: true

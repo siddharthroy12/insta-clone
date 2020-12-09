@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Navbar, Container, Nav, Image, ListGroup } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { AiFillHome } from 'react-icons/ai'
 import { FaUsers } from 'react-icons/fa'
 import { CgProfile } from 'react-icons/cg'
 import { FiSettings } from 'react-icons/fi'
 import { HiLogout } from 'react-icons/hi'
+import { logout } from '../actions/userActions'
 
 const Header = () => {
     const [dropdownIsOpen, setDropdownIsOpen] = useState(false)
@@ -14,6 +15,8 @@ const Header = () => {
     
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!userInfo) {
@@ -31,23 +34,35 @@ const Header = () => {
         }
     }
 
+    function logoutHandler() {
+        dispatch(logout())
+    }
+
     return (
         <Navbar bg="light">
             <Container>
-                <LinkContainer to='/'>
+                <LinkContainer to='/' onClick={e => setDropdownIsOpen(false)}>
                     <Navbar.Brand>Instaclone</Navbar.Brand>
                 </LinkContainer>
                 {showMenu && (
                     <Nav>
-                    <Nav.Link><AiFillHome /></Nav.Link>
-                    <Nav.Link><FaUsers /></Nav.Link>
+                    <LinkContainer to='/' onClick={e => setDropdownIsOpen(false)}>
+                        <Nav.Link><AiFillHome /></Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to='/peoples' onClick={e => setDropdownIsOpen(false)}>
+                        <Nav.Link><FaUsers /></Nav.Link>
+                    </LinkContainer>
                     <Nav.Item>
                         <Image src="/uploads/default_profile.png" roundedCircle onClick={toggleDropdown} />
                         {dropdownIsOpen && (
-                            <ListGroup>
-                                <ListGroup.Item><CgProfile /> Profile</ListGroup.Item>
-                                <ListGroup.Item><FiSettings /> Profile Settings</ListGroup.Item>
-                                <ListGroup.Item><HiLogout /> Logout</ListGroup.Item>
+                            <ListGroup onClick={e => setDropdownIsOpen(false)}>
+                                <LinkContainer to='/profile'>
+                                    <ListGroup.Item><CgProfile /> Profile</ListGroup.Item>
+                                </LinkContainer>
+                                <LinkContainer to='/settings'>
+                                    <ListGroup.Item><FiSettings /> Profile Settings</ListGroup.Item>
+                                </LinkContainer>
+                                <ListGroup.Item onClick={logoutHandler}><HiLogout /> Logout</ListGroup.Item>
                             </ListGroup>
                         )}
                     </Nav.Item>

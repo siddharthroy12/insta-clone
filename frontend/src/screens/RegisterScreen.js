@@ -13,9 +13,11 @@ const RegisterScreen = ({ history, location }) => {
     const [email, setEmail] = useState('')
 
     const dispatch = useDispatch()
-    const redirect = location.search ? location.search.split('=')[1] : '/'
+    const redirect = '/'
     const userRegister = useSelector(state => state.userRegister)
-    let { loading, error, userInfo } = userRegister
+    let { loading: registerLoading, error: registerError } = userRegister
+    const userLogin = useSelector(state => state.userLogin)
+    let { userInfo } = userLogin
 
     useEffect(() => {
         if (userInfo) {
@@ -30,8 +32,6 @@ const RegisterScreen = ({ history, location }) => {
         }
     }
 
-    console.log(error)
-
     return (
         <Container>
             <Row className="justify-content-center">
@@ -40,8 +40,8 @@ const RegisterScreen = ({ history, location }) => {
                         <Card.Body>
                             <h1 style={{textAlign: "center", marginBottom: "20px"}}>Register</h1>
                             {passwordRepeat !== password && <Message variant='danger'>Password do not match</Message>}
-                            {error && <Message variant='danger'>{error}</Message>}
-                            {loading && <Loader />}
+                            {registerError && <Message variant='danger'>{registerError}</Message>}
+                            {registerLoading && <Loader />}
                             <Form onSubmit={submitHandler}>
                                 <Form.Group controlId="username">
                                     <Form.Control
@@ -75,7 +75,7 @@ const RegisterScreen = ({ history, location }) => {
                                         onChange={e => setPasswordRepeat(e.target.value)}>
                                     </Form.Control>
                                 </Form.Group>
-                                <Button type="submit" disabled={loading || passwordRepeat !== password}>Register</Button>
+                                <Button type="submit" disabled={registerLoading || passwordRepeat !== password}>Register</Button>
                             </Form>
                         </Card.Body>
                     </Card>
