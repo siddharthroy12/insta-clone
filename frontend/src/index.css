@@ -35,7 +35,7 @@ code {
 .nav-item .list-group {
   position: absolute;
   top: 50px;
-  right: 90px;
+  right: 20px;
 }
 
 .nav-item, .nav-link {
