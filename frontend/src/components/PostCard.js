@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Card, Dropdown, Image } from 'react-bootstrap'
 import { AiFillHeart, AiOutlineMenu } from 'react-icons/ai'
@@ -67,9 +68,9 @@ const PostCard = (props) => {
                             <AiOutlineMenu />
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Follow</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Save</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">View Profile</Dropdown.Item>
+                            <Dropdown.Item>Follow</Dropdown.Item>
+                            <Dropdown.Item>Save</Dropdown.Item>
+                            <Dropdown.Item as={Link} to={`/profile/${userDetail._id}`}>View Profile</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Card.Title>

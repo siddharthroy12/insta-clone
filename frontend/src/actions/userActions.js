@@ -84,7 +84,7 @@ export const register = (username, email, password) => async (dispatch) => {
     }
 }
 
-export const getProfile = () => async (dispatch, getState) => {
+export const getProfile = (id=null) => async (dispatch, getState) => {
     try {
         dispatch({
             type: USER_PROFILE_REQUEST
@@ -92,11 +92,18 @@ export const getProfile = () => async (dispatch, getState) => {
 
         const  { userLogin: { userInfo } } = getState()
 
-        const { data } = await axios.get(`/api/users/${userInfo._id}`)
+        let res
+
+        if (id) {
+            res = await axios.get(`/api/users/${id}`)
+        } else {
+            res = await axios.get(`/api/users/${userInfo._id}`)
+        }
+        
 
         dispatch({
             type: USER_PROFILE_SUCCESS,
-            payload: data
+            payload: res.data
         })
 
     } catch (error) {
