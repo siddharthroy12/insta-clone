@@ -2,17 +2,29 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap'
 import { BsFillImageFill } from 'react-icons/bs'
+import PostCard from '../components/PostCard'
+import Loader from '../components/Loader'
+import { fetchFeed } from '../actions/feedAction'
+
 
 const HomeScreen = ({history}) => {
     const redirect = '/login'
     const userLogin = useSelector(state => state.userLogin)
     const { loading, error, userInfo } = userLogin
+    const feed = useSelector(state => state.feed)
+    const { feed: posts, loading: feedLoading } = feed
+    console.log(posts)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!userInfo) {
             history.push(redirect)
         }
-    }, [history, userInfo, redirect])
+        if (!feedLoading && !posts) {
+            dispatch(fetchFeed())
+        }
+    }, [history, userInfo, redirect, dispatch, feedLoading, posts])
 
     return (
         <Container>
@@ -39,6 +51,9 @@ const HomeScreen = ({history}) => {
                             </Form>
                         </Card.Body>
                     </Card>
+                    {!posts ? <Loader /> : posts.map(post => (
+                        <PostCard post={post} key={post._id}/>
+                    ))}
                 </Col>
                 <Col xs={4}>
                     <p>Other Suffs</p>

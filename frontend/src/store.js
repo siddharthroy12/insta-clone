@@ -6,11 +6,19 @@ import {
     userRegisterReducer,
     userProfileReducer,
 } from './reducers/userReducers'
+import {
+    feedReducer
+} from './reducers/feedReducers'
+import {
+    likePostReducer
+} from './reducers/postReducers'
 
 const reducer = combineReducers({
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
-    userProfile: userProfileReducer
+    userProfile: userProfileReducer,
+    feed: feedReducer,
+    likePost: likePostReducer
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null

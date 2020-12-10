@@ -80,3 +80,13 @@ form {
   gap: 10px;
   justify-content: flex-end;
 }
+
+.like-comment {
+  padding: .5rem .8rem !important;
+  border-radius: 50px;
+  font-size: 1rem;
+}
+
+.dropdown-toggle::after {
+  display: none
+}
