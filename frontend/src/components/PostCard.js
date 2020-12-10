@@ -2,36 +2,46 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Card, Dropdown, Image } from 'react-bootstrap'
-import { AiFillHeart, AiOutlineHeart, AiOutlineMenu } from 'react-icons/ai'
+import { AiFillHeart, AiOutlineMenu } from 'react-icons/ai'
 import { BiComment } from 'react-icons/bi'
 import Loader from '../components/Loader'
 import { likePost } from '../actions/postActions'
 
 const PostCard = (props) => {
-    const { post } = props
+    const { postData, id } = props
     const [loading, setLoading] = useState(true)
+    const [post, setPost] = useState(postData ? postData : null)
+    
+    async function fetchPost(id) {
+        const { data } = await axios.get(`/api/posts/${id}`)
+        return data
+    }
+    if (id && !post) {
+        fetchPost(id).then(p => setPost(p))
+    }
+    
     const [userDetail, setUserDetail] = useState(null)
     const likePostState = useSelector(state => state.likePost)
     const { loading: likeLoading, error: likeError, success: likeSuccess } = likePostState
     const userLogin = useSelector(state => state.userLogin)
     const { loading: profileLoading, error: profileError, userInfo: profile } = userLogin
-    const [liked, setLiked] = useState(post.likes.includes(profile._id))
+    const [liked, setLiked] = useState(post ? post.likes.includes(profile._id) : false)
     
     const dispatch = useDispatch()
 
-    async function fetchUserDetail() {
-        setLoading(true)
-        const { data } = await axios.get(`/api/users/${post.user}`)
-        console.log(data)
-        setUserDetail(data)
-        setLoading(false)
-    }
-
     useEffect(() => {
-        if (!userDetail) {
-            fetchUserDetail()
+        async function fetchUserDetail() {
+            setLoading(true)
+            const { data } = await axios.get(`/api/users/${post.user}`)
+            console.log(data)
+            setUserDetail(data)
+            setLoading(false)
         }
-    }, [userDetail, fetchUserDetail, loading])
+        if (!userDetail && post) {
+            fetchUserDetail()
+            setLiked(post.likes.includes(profile._id))
+        }
+    }, [userDetail, loading, post, profile._id])
 
     function likeButtonHandler() {
         dispatch(likePost(post._id))

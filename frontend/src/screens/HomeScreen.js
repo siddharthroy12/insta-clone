@@ -52,7 +52,7 @@ const HomeScreen = ({history}) => {
                         </Card.Body>
                     </Card>
                     {!posts ? <Loader /> : posts.map(post => (
-                        <PostCard post={post} key={post._id}/>
+                        <PostCard postData={post} key={post._id}/>
                     ))}
                 </Col>
                 <Col xs={4}>

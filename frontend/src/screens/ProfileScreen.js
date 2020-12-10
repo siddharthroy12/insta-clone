@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Button, Card, Image, Tab, Tabs, Badge } from 'react-bootstrap'
 import { getProfile } from '../actions/userActions'
 import Loader from '../components/Loader'
+import PostCard from '../components/PostCard'
 
 const ProfileScreen = ({ history }) => {
+    const [posts, setPosts] = useState([])
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
@@ -66,9 +68,14 @@ const ProfileScreen = ({ history }) => {
                                     <Col>
                                         <Tabs defaultActiveKey="Posts" id="profile-tab">
                                             <Tab eventKey="Posts" title="Posts">
-                                                <p>Posts</p>
+                                                <br></br>
+                                                {profile.posts.length === 0 ? <p>No Post</p> :
+                                                profile.posts.map(post => {
+                                                    return <PostCard id={post} />
+                                                })}
                                             </Tab>
                                             <Tab eventKey="Saved" title="Saved">
+                                                <br></br>
                                                 <p>Saved</p>
                                             </Tab>
                                         </Tabs>

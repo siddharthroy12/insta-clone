@@ -73,6 +73,7 @@ form {
 .file-input label {
   color: #6442DE !important;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .post-buttons {
