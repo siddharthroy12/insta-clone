@@ -10,7 +10,9 @@ import {
     feedReducer
 } from './reducers/feedReducers'
 import {
-    likePostReducer
+    likePostReducer,
+    createPostReducer,
+    deletePostReducer
 } from './reducers/postReducers'
 
 const reducer = combineReducers({
@@ -18,7 +20,9 @@ const reducer = combineReducers({
     userRegister: userRegisterReducer,
     userProfile: userProfileReducer,
     feed: feedReducer,
-    likePost: likePostReducer
+    likePost: likePostReducer,
+    createPost: createPostReducer,
+    deletePost: deletePostReducer
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null

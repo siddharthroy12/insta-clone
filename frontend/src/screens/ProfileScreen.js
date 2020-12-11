@@ -65,7 +65,7 @@ const ProfileScreen = ({ match, history }) => {
                                             </ul>
                                         </Row>
                                         <Row style={{padding:"20px"}}>
-                                            <Button variant="dark" style={{borderRadius:"5px", width:"90px", height:"30px", lineHeight:0}}> Follow </Button>
+                                            <Button variant="primary" style={{borderRadius:"5px", width:"90px", height:"30px", lineHeight:0}}> Follow </Button>
                                         </Row>   
                                         <Row>
                                             <h5>{profile.bio}</h5>

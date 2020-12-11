@@ -75,9 +75,34 @@ const deletePost = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc Save a post
+// @route POST /api/posts/save/:id
+// @access Private
+const savePost = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id)
+    const post = await Post.findById(req.params.id)
+    
+    if (!post) {
+        res.status(404)
+        throw new Error('Post not found')
+    } else {
+        const savedPost = user.saved.find(save => save.toString() === req.params.id)
+
+        if (!savedPost) {
+            user.saved.push(req.params.id)
+        } else {
+            user.saved = user.saved.filter(save => save.toString() !== req.params.id)
+        }
+
+        const updatedUser = await user.save()
+        res.json(updatedUser)
+    }
+})
+
 
 // @desc Like or unlike a post
 // @route POST /api/posts/:id
+// @access Private
 const likePost = asyncHandler(async (req, res) => {
     const post = await Post.findById(req.params.id)
     
@@ -217,5 +242,6 @@ module.exports = {
     commentPost,
     deleteComment,
     likeComment,
-    removePost
+    removePost,
+    savePost
 }
