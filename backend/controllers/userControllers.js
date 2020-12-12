@@ -63,7 +63,8 @@ const loginUser = asyncHandler(async (req, res) => {
             name: user.name,
             email: user.email,
             isAdmin: user.isAdmin,
-            token: generateToken(user._id)
+            token: generateToken(user._id),
+            profilePic: user.profilePic
         })
     } else {
         res.status(401)
@@ -151,6 +152,8 @@ const updateUser = asyncHandler(async (req, res) => {
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
         user.isAdmin = req.body.isAdmin
+        user.bio = req.body.bio || user.bio
+        user.website = req.body.website || user.website
 
         const updatedUser = await user.save()
 

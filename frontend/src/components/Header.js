@@ -11,7 +11,7 @@ import { logout } from '../actions/userActions'
 
 const Header = () => {
     const [dropdownIsOpen, setDropdownIsOpen] = useState(false)
-    const [showMenu, setShowMenu] = useState(true)
+    const [showMenu, setShowMenu] = useState(false)
     
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -36,6 +36,7 @@ const Header = () => {
 
     function logoutHandler() {
         dispatch(logout())
+        window.location.href = window.location.href
     }
 
     return (
@@ -53,13 +54,13 @@ const Header = () => {
                         <Nav.Link><FaUsers /></Nav.Link>
                     </LinkContainer>
                     <Nav.Item>
-                        <Image src="/uploads/default_profile.png" roundedCircle onClick={toggleDropdown} />
+                        <Image src={ userInfo ? userInfo.profilePic : '/img/default_profile.png'} roundedCircle onClick={toggleDropdown} />
                         {dropdownIsOpen && (
                             <ListGroup onClick={e => setDropdownIsOpen(false)}>
                                 <LinkContainer to='/profile'>
                                     <ListGroup.Item><CgProfile /> Profile</ListGroup.Item>
                                 </LinkContainer>
-                                <LinkContainer to='/settings'>
+                                <LinkContainer to={`/updateprofile/${userInfo._id}`}>
                                     <ListGroup.Item><FiSettings /> Profile Settings</ListGroup.Item>
                                 </LinkContainer>
                                 <ListGroup.Item onClick={logoutHandler}><HiLogout /> Logout</ListGroup.Item>

@@ -22,16 +22,19 @@ const ProfileScreen = ({ match, history }) => {
             if (match.params.id) {
                 dispatch(getProfile(match.params.id))
             } else {
-                dispatch(getProfile())
+               dispatch(getProfile())
             }
         }
-    }, [history, userInfo, dispatch, profile, match.params.id])
+        if (profile) {
+            if (profile._id !== match.params.id) {
+                dispatch(getProfile(match.params.id))
+            }
+        }
+    }, [history, userInfo])
 
     function editButtonHandler() {
-        history.push('/editprofile')
+        history.push(`/updateprofile/${profile._id}`)
     }
-
-    console.log(userInfo.isAdmin || userInfo._id === profile._id)
 
     return (
         <Container>

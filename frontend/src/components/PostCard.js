@@ -56,7 +56,7 @@ const PostCard = (props) => {
     }
 
     function deleteButtonHandler() {
-        dispatch(deletePost(id))
+        dispatch(deletePost(post._id))
         setDeleted(true)
     }
 
@@ -78,7 +78,7 @@ const PostCard = (props) => {
                         <Dropdown.Menu>
                             <Dropdown.Item as={Link} to={`/profile/${userDetail._id}`}>View Profile</Dropdown.Item>
                             <Dropdown.Item>Save</Dropdown.Item>
-                            {(profile.isAdmin || profile._id == post.user) &&
+                            {(profile.isAdmin || profile._id === post.user) &&
                                 <Dropdown.Item onClick={deleteButtonHandler}>Delete</Dropdown.Item>
                             }
                         </Dropdown.Menu>

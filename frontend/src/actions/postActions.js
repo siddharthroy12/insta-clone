@@ -88,7 +88,7 @@ export const deletePost = (id) => async (dispatch, getState) => {
         }
 
         if (userInfo.isAdmin) {
-            await axios.delete(`/api/admin/posts/${id}`, config)
+            await axios.delete(`/api/posts/admin/${id}`, config)
         }
 
         await axios.delete(`/api/posts/${id}`, config)

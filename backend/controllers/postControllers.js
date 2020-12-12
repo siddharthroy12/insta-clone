@@ -6,7 +6,8 @@ const User = require('../models/userModel')
 // @route GET /api/posts
 // @access Public
 const getPosts = asyncHandler(async (req, res) => {
-    const posts = await Post.find({})
+    let posts = await Post.find({})
+    posts.reverse()
     res.json(posts)
 })
 

@@ -48,7 +48,7 @@ const userSchema = mongoose.Schema({
     },
     profilePic: {
         type: String,
-        default: "/uploads/default_profile.png"
+        default: "/img/default_profile.png"
     }
 }, {
     timestamp: true

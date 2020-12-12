@@ -5,13 +5,23 @@ const connectDB = require('../config/db')
 const userRoutes = require('./routes/usersRoutes')
 const postRoutes = require('./routes/postRoutes')
 const uploadRoute = require('./routes/uploadRoute')
+var fs = require('fs');
 
+// Create uploads dir if doesn't exist
+var dir = './uploads';
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
+
+// Load environment variables from .env
 require('dotenv').config()
 
+// Connect to database
 connectDB()
 
 const app =  express()
 
+// Use loggin in development mode
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
 }
@@ -24,6 +34,7 @@ app.use('/api/upload', uploadRoute)
 
 app.use('/uploads', express.static('uploads'))
 
+// Serve build in production mode
 if (process.env.NODE_ENV === 'production') {
     app.use('frontend/build')
     app.get('*', (req, res) => res.sendFile('frontend/build/index.html'))
