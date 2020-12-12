@@ -59,7 +59,7 @@ const HomeScreen = ({history}) => {
     return (
         <Container>
             <Row>
-                <Col xs={8}>
+                <Col>
                     <Card>
                         <Card.Body>
                             <Form onSubmit={submitButtonHandler}>
@@ -98,7 +98,7 @@ const HomeScreen = ({history}) => {
                         <PostCard postData={post} key={post._id}/>
                     ))}
                 </Col>
-                <Col xs={4}>
+                <Col xs={4} className="extras">
                     <p>Other Suffs</p>
                 </Col>
             </Row>

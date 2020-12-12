@@ -40,7 +40,7 @@ const Header = () => {
     }
 
     return (
-        <Navbar bg="light">
+        <Navbar bg="light" fixed="top">
             <Container>
                 <LinkContainer to='/' onClick={e => setDropdownIsOpen(false)}>
                     <Navbar.Brand>Instaclone</Navbar.Brand>

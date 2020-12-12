@@ -106,7 +106,7 @@ const ProfileUpdateScreen = ({ history, match }) => {
                                 Update Profile Settings
                             </h1>
                             <h5 style={{textAlign: "center", marginBottom: "20px"}}>
-                                {username}
+                                @{username}
                             </h5>
                             <Image
                                 src={profilePic || "/uploads/default_profile.png"}

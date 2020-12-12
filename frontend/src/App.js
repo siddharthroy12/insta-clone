@@ -10,13 +10,12 @@ function App() {
   return (
     <Router>
       <Header></Header>
-      <main className="py-3">
+      <main style={{paddingTop:"100px"}}>
         <Route path='/login' component={LoginScreen} exact />
         <Route path='/register' component={RegisterScreen} exact />
         <Route path='/updateprofile/:id' component={ProfileUpdateScreen} exact />
         <Route path='/profile/:id' component={ProfileScreen} exact />
         <Route path='/profile' component={ProfileScreen} exact />
-
         <Route path='/' component={HomeScreen} exact />
       </main>
     </Router>

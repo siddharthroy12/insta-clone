@@ -91,3 +91,13 @@ form {
 .dropdown-toggle::after {
   display: none
 }
+
+.loginContainer {
+  max-width: 500px;
+}
+
+@media (max-width: 800px) {
+  .extras {
+    display: none;
+  }
+}

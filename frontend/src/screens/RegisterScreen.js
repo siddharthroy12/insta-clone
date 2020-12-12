@@ -33,9 +33,9 @@ const RegisterScreen = ({ history, location }) => {
     }
 
     return (
-        <Container>
+        <Container className="loginContainer">
             <Row className="justify-content-center">
-                <Col xs={6}>
+                <Col xs={12}>
                     <Card style={{marginBottom: "40px"}}>
                         <Card.Body>
                             <h1 style={{textAlign: "center", marginBottom: "20px"}}>Register</h1>
