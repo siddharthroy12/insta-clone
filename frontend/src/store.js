@@ -5,6 +5,7 @@ import {
     userLoginReducer,
     userRegisterReducer,
     userProfileReducer,
+    userProfileUpdateReducer,
 } from './reducers/userReducers'
 import {
     feedReducer
@@ -19,6 +20,7 @@ const reducer = combineReducers({
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
     userProfile: userProfileReducer,
+    userProfileUpdate: userProfileUpdateReducer,
     feed: feedReducer,
     likePost: likePostReducer,
     createPost: createPostReducer,

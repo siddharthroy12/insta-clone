@@ -25,9 +25,9 @@ const PostCard = (props) => {
     
     const [userDetail, setUserDetail] = useState(null)
     const likePostState = useSelector(state => state.likePost)
-    const { loading: likeLoading, error: likeError, success: likeSuccess } = likePostState
+    const { loading: likeLoading } = likePostState
     const userLogin = useSelector(state => state.userLogin)
-    const { loading: profileLoading, error: profileError, userInfo: profile } = userLogin
+    const { userInfo: profile } = userLogin
     const [liked, setLiked] = useState(post ? post.likes.includes(profile._id) : false)
     
     const dispatch = useDispatch()
@@ -65,10 +65,14 @@ const PostCard = (props) => {
             {loading ? <Loader /> : (
                 <Card.Body>
                     {deleted ? <Card.Text><Message variant="danger">Deleted</Message></Card.Text> : (
-                        <div>
-                            <Card.Title style={{display:"flex", justifyContent: "space-between"}}>
                     <div>
-                        <Image src="/uploads/default_profile.png" roundedCircle style={{width: "50px", marginRight: "20px"}} />
+                        <Card.Title style={{display:"flex", justifyContent: "space-between"}}>
+                    <div>
+                        <Image
+                            src={userDetail.profilePic}
+                            roundedCircle
+                            style={{width: "50px", marginRight: "20px"}}
+                        />
                         @{userDetail.username}
                     </div>
                     <Dropdown>
@@ -76,28 +80,52 @@ const PostCard = (props) => {
                             <AiOutlineMenu />
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item as={Link} to={`/profile/${userDetail._id}`}>View Profile</Dropdown.Item>
+                            <Dropdown.Item as={Link} to={`/profile/${userDetail._id}`}>
+                                View Profile
+                            </Dropdown.Item>
                             <Dropdown.Item>Save</Dropdown.Item>
                             {(profile.isAdmin || profile._id === post.user) &&
-                                <Dropdown.Item onClick={deleteButtonHandler}>Delete</Dropdown.Item>
+                                <Dropdown.Item onClick={deleteButtonHandler}>
+                                    Delete
+                                </Dropdown.Item>
                             }
                         </Dropdown.Menu>
                     </Dropdown>
-                </Card.Title>
-                <Card.Text>
-                    <p style={{fontFamily: "sans-serif"}}>{post.body}</p>
-                </Card.Text>
-                {post.image !== "" &&
-                    <Card.Img variant="bottom" src={post.image} style={{height:"400px", objectFit: "cover", marginBottom:"20px"}}/>
-                }
-                <div style={{display: "flex", gap: "20px", alignItems: "center"}}>
-                        {liked ? <Button variant="danger" className="like-comment" onClick={likeButtonHandler} disabled={likeLoading}><AiFillHeart /></Button> :
-                        <Button variant="outline-danger" className="like-comment" onClick={likeButtonHandler} disabled={likeLoading}><AiFillHeart /></Button>}
+                    </Card.Title>
+                    <Card.Text>
+                        <p style={{fontFamily: "sans-serif"}}>{post.body}</p>
+                    </Card.Text>
+                    {post.image !== "" &&
+                        <Card.Img
+                            variant="bottom"
+                            src={post.image}
+                            style={{height:"400px", objectFit: "cover", marginBottom:"20px"}}
+                        />
+                    }
+                    <div style={{display: "flex", gap: "20px", alignItems: "center"}}>
+                        {liked ? <Button
+                            variant="danger"
+                            className="like-comment"
+                            onClick={likeButtonHandler}
+                            disabled={likeLoading}>
+                            <AiFillHeart />
+                        </Button> :
+                        <Button
+                            variant="outline-danger"
+                            className="like-comment"
+                            onClick={likeButtonHandler}
+                            disabled={likeLoading}>
+                            <AiFillHeart />
+                        </Button>}
                         {post.likes.length}
-                        <Button variant="outline-danger" className="like-comment"><BiComment /></Button>
+                        <Button
+                            variant="outline-danger"
+                            className="like-comment">
+                            <BiComment />
+                        </Button>
                         {post.comments.length}
-                </div>
-                        </div>
+                    </div>
+                    </div>
                     )}    
                 </Card.Body>
             )}

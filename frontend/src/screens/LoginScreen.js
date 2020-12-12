@@ -56,12 +56,18 @@ const LoginScreen = ({ history, location }) => {
                             </Form>
                         </Card.Body>
                     </Card>
-                    <h5 style={{textAlign: "center", borderBottom: "1px solid", lineHeight:"0", marginBottom: "40px"}}>
+                    <h5 style={{
+                        textAlign: "center",
+                        borderBottom: "1px solid",
+                        lineHeight:"0",
+                        marginBottom: "40px"}}>
                         <span style={{background: "white", padding: "10px"}}>Or</span>
                     </h5>
                     <Card>
                         <Card.Body>
-                            <h5 style={{textAlign: "center"}}>Don't have a account? <Link to='/register'>Sign Up</Link></h5>
+                            <h5 style={{textAlign: "center"}}>
+                                Don't have a account? <Link to='/register'>Sign Up</Link>
+                            </h5>
                         </Card.Body>
                     </Card>
                 </Col>

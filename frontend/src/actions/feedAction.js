@@ -21,7 +21,10 @@ export const fetchFeed = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: FEED_REQUEST_FAIL,
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+            payload: error.response &&
+                error.response.data.message ?
+                error.response.data.message :
+                error.message
         })
     }
 }

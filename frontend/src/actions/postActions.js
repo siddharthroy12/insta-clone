@@ -38,7 +38,10 @@ export const createPost = (body, image) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: CREATE_POST_FAIL,
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+            payload: error.response &&
+            error.response.data.message ?
+            error.response.data.message :
+            error.message
         })
     }
 }
@@ -67,7 +70,10 @@ export const likePost = (id) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: LIKE_POST_FAIL,
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+            payload: error.response &&
+            error.response.data.message ?
+            error.response.data.message :
+            error.message
         })
     }
 }
@@ -100,7 +106,10 @@ export const deletePost = (id) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: DELETE_POST_FAIL,
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+            payload: error.response &&
+                error.response.data.message ?
+                error.response.data.message :
+                error.message
         })
     }
 }

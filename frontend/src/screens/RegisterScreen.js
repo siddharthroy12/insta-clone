@@ -39,7 +39,11 @@ const RegisterScreen = ({ history, location }) => {
                     <Card style={{marginBottom: "40px"}}>
                         <Card.Body>
                             <h1 style={{textAlign: "center", marginBottom: "20px"}}>Register</h1>
-                            {passwordRepeat !== password && <Message variant='danger'>Password do not match</Message>}
+                            {passwordRepeat !== password &&
+                                <Message variant='danger'>
+                                    Password do not match
+                                </Message>
+                            }
                             {registerError && <Message variant='danger'>{registerError}</Message>}
                             {registerLoading && <Loader />}
                             <Form onSubmit={submitHandler}>
@@ -75,16 +79,29 @@ const RegisterScreen = ({ history, location }) => {
                                         onChange={e => setPasswordRepeat(e.target.value)}>
                                     </Form.Control>
                                 </Form.Group>
-                                <Button type="submit" disabled={registerLoading || passwordRepeat !== password}>Register</Button>
+                                <Button
+                                    type="submit"
+                                    disabled={registerLoading || passwordRepeat !== password}>
+                                        Register
+                                </Button>
                             </Form>
                         </Card.Body>
                     </Card>
-                    <h5 style={{textAlign: "center", borderBottom: "1px solid", lineHeight:"0", marginBottom: "40px"}}>
+                    <h5
+                        style={{
+                            textAlign: "center",
+                            borderBottom: "1px solid",
+                            lineHeight:"0",
+                            marginBottom: "40px"
+                        }}>
                         <span style={{background: "white", padding: "10px"}}>Or</span>
                     </h5>
                     <Card>
                         <Card.Body>
-                        <h5 style={{textAlign: "center"}}>Already have a account? <Link to='/login'>Sign In</Link></h5>
+                        <h5
+                            style={{textAlign: "center"}}>
+                            Already have a account? <Link to='/login'>Sign In</Link>
+                        </h5>
                         </Card.Body>
                     </Card>
                 </Col>

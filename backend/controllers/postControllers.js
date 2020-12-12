@@ -45,7 +45,6 @@ const createPost = asyncHandler(async (req, res) => {
     })
 
     const user = await User.findById(req.user._id)
-    console.log(req.user._id)
     user.posts.push(newPost._id)
     await user.save()
 

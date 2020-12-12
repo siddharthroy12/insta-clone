@@ -1,13 +1,11 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import Message from '../components/Message'
-import Loader from '../components/Loader'
-import { Form, Button, Row, Col, Card, Container, Image } from 'react-bootstrap'
+import { Form, Button, Row, Card, Container, Image } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { register } from '../actions/userActions'
-import { getProfile } from '../actions/userActions'
+import { getProfile, updateProfile } from '../actions/userActions'
 
-const ProfileUpdateScreen = ({ history, location, match }) => {
+const ProfileUpdateScreen = ({ history, match }) => {
     const [username, setUsername] = useState('Loading')
     const [password, setPassword] = useState('')
     const [passwordRepeat, setPasswordRepeat] = useState('')
@@ -17,17 +15,21 @@ const ProfileUpdateScreen = ({ history, location, match }) => {
     const [isAdmin, setIsAdmin] = useState(false)
     const [profilePic, setProfilePic] = useState('')
 
-    const [uploading, setUploading] = useState(false)
-
     const dispatch = useDispatch()
     const redirect = '/login'
     const userLogin = useSelector(state => state.userLogin)
     let { userInfo } = userLogin
 
     const userProfile = useSelector(state => state.userProfile)
-    const { loading: profileLoading, error: profileError, userProfile: profile } = userProfile
+    const { userProfile: profile } = userProfile
+
+    const userProfileUpdate = useSelector(state => state.userProfileUpdate)
+    const { success: userProfileUpdateSuccess } = userProfileUpdate
 
     useEffect(() => {
+        if (userProfileUpdateSuccess) {
+            history.push(`/profile/${profile._id}`)
+        }
         if (!userInfo) {
             history.push(redirect)
         }
@@ -52,12 +54,29 @@ const ProfileUpdateScreen = ({ history, location, match }) => {
             setIsAdmin(profile.isAdmin)
             setProfilePic(profile.profilePic)
         }
-    }, [history, userInfo, redirect, dispatch, match.params.id, profile])
+    }, [
+        history,
+        userInfo,
+        redirect,
+        dispatch,
+        match.params.id,
+        profile,
+        userProfileUpdateSuccess
+    
+    ])
 
     function submitHandler(e) {
         e.preventDefault()
         if (passwordRepeat === password) {
-            dispatch(register(username, email, password))
+            dispatch(updateProfile(
+                profile._id,
+                password,
+                email,
+                bio,
+                website,
+                isAdmin,
+                profilePic
+            ))
         }
     }
 
@@ -65,7 +84,6 @@ const ProfileUpdateScreen = ({ history, location, match }) => {
         const file = e.target.files[0]
         const formData = new FormData()
         formData.append('image', file)
-        setUploading(true)
 
         try {
             const config = {
@@ -73,11 +91,9 @@ const ProfileUpdateScreen = ({ history, location, match }) => {
             }
             const { data } = await axios.post('/api/upload', formData, config)
             setProfilePic(data)
-            setUploading(false)
         
         } catch (error) {
             console.error(error)
-            setUploading(false)
         }
     }
 
@@ -86,8 +102,12 @@ const ProfileUpdateScreen = ({ history, location, match }) => {
             <Row className="justify-content-center">
                     <Card style={{marginBottom: "40px"}}>
                         <Card.Body>
-                            <h1 style={{textAlign: "center", marginBottom: "20px"}}>Update Profile Settings</h1>
-                            <h5 style={{textAlign: "center", marginBottom: "20px"}}>{username}</h5>
+                            <h1 style={{textAlign: "center", marginBottom: "20px"}}>
+                                Update Profile Settings
+                            </h1>
+                            <h5 style={{textAlign: "center", marginBottom: "20px"}}>
+                                {username}
+                            </h5>
                             <Image
                                 src={profilePic || "/uploads/default_profile.png"}
                                 rounded
@@ -98,7 +118,9 @@ const ProfileUpdateScreen = ({ history, location, match }) => {
                                     width: "100px"
                                 }}
                             />
-                            {passwordRepeat !== password && <Message variant='danger'>Password do not match</Message>}
+                            {passwordRepeat !== password && <Message variant='danger'>
+                                Password do not match
+                            </Message>}
                             <Form onSubmit={submitHandler}>
                                 <Form.Group controlId='image' className="file-input">
                                     <label
@@ -144,7 +166,12 @@ const ProfileUpdateScreen = ({ history, location, match }) => {
                                     (
                                         <>
                                             <Form.Group controlId="isAdmin">
-                                                <Form.Check type="checkbox" label="Is Admin" checked={isAdmin} onChange={e => setIsAdmin(!isAdmin)}></Form.Check>
+                                                <Form.Check 
+                                                    type="checkbox"
+                                                    label="Is Admin"
+                                                    checked={isAdmin}
+                                                    onChange={e => setIsAdmin(!isAdmin)}>
+                                                </Form.Check>
                                             </Form.Group>
                                         </>
                                     )
@@ -171,7 +198,9 @@ const ProfileUpdateScreen = ({ history, location, match }) => {
                                         </>
                                     )
                                 }
-                                <Button type="submit" disabled={passwordRepeat !== password}>Update</Button>
+                                <Button type="submit" disabled={passwordRepeat !== password}>
+                                    Update
+                                </Button>
                             </Form>
                         </Card.Body>
                     </Card>

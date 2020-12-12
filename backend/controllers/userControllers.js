@@ -57,7 +57,6 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({ username })
     
     if (user && (await user.matchPassword(password))) {
-        console.log(user)
         res.json({
             _id: user._id,
             name: user.name,
@@ -95,6 +94,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         user.email = req.body.email || user.email
         user.bio = req.body.bio || user.bio
         user.website = req.body.website || user.website
+        user.profilePic = req.body.profilePic || user.profilePic
         if (req.body.password) {
             user.password = req.body.password
         }
@@ -106,7 +106,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             username: updatedUser.username,
             email: updatedUser.email,
             isAdmin: updatedUser.isAdmin,
-            token: generateToken(updatedUser._id)
+            token: generateToken(updatedUser._id),
+            profilePic: user.profilePic
         })
     } else {
         res.status(404)
@@ -153,7 +154,8 @@ const updateUser = asyncHandler(async (req, res) => {
         user.email = req.body.email || user.email
         user.isAdmin = req.body.isAdmin
         user.bio = req.body.bio || user.bio
-        user.website = req.body.website || user.website
+        user.website = req.body.website || user.website,
+        user.profilePic = req.body.profilePic || user.profilePic
 
         const updatedUser = await user.save()
 

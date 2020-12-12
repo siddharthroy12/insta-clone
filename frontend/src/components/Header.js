@@ -36,7 +36,7 @@ const Header = () => {
 
     function logoutHandler() {
         dispatch(logout())
-        window.location.href = window.location.href
+        window.location.reload()
     }
 
     return (
@@ -54,16 +54,28 @@ const Header = () => {
                         <Nav.Link><FaUsers /></Nav.Link>
                     </LinkContainer>
                     <Nav.Item>
-                        <Image src={ userInfo ? userInfo.profilePic : '/img/default_profile.png'} roundedCircle onClick={toggleDropdown} />
+                        <Image
+                            src={
+                                userInfo ? userInfo.profilePic : '/img/default_profile.png'
+                            }
+                            roundedCircle
+                            onClick={toggleDropdown}
+                        />
                         {dropdownIsOpen && (
                             <ListGroup onClick={e => setDropdownIsOpen(false)}>
                                 <LinkContainer to='/profile'>
-                                    <ListGroup.Item><CgProfile /> Profile</ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <CgProfile /> Profile
+                                    </ListGroup.Item>
                                 </LinkContainer>
                                 <LinkContainer to={`/updateprofile/${userInfo._id}`}>
-                                    <ListGroup.Item><FiSettings /> Profile Settings</ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <FiSettings /> Profile Settings
+                                    </ListGroup.Item>
                                 </LinkContainer>
-                                <ListGroup.Item onClick={logoutHandler}><HiLogout /> Logout</ListGroup.Item>
+                                <ListGroup.Item onClick={logoutHandler}>
+                                    <HiLogout /> Logout
+                                </ListGroup.Item>
                             </ListGroup>
                         )}
                     </Nav.Item>

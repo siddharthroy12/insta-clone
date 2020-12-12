@@ -12,7 +12,7 @@ const ProfileScreen = ({ match, history }) => {
     const dispatch = useDispatch()
 
     const userProfile = useSelector(state => state.userProfile)
-    const { loading: profileLoading, error: profileError, userProfile: profile } = userProfile
+    const { loading: profileLoading, userProfile: profile } = userProfile
 
     useEffect(() => {
         if (!userInfo) {
@@ -30,7 +30,7 @@ const ProfileScreen = ({ match, history }) => {
                 dispatch(getProfile(match.params.id))
             }
         }
-    }, [history, userInfo])
+    }, [history, userInfo, dispatch, match.params.id, profile])
 
     function editButtonHandler() {
         history.push(`/updateprofile/${profile._id}`)
@@ -44,37 +44,86 @@ const ProfileScreen = ({ match, history }) => {
                         {profileLoading ? <Loader /> : profile && (
                             <Card.Body>
                                 <Row style={{marginBottom: "20px"}}>
-                                    <Col xs={2} style={{marginRight: "50px"}}>
-                                        <Image src={profile.profilePic || "/uploads/default_profile.png"} rounded fluid />
+                                    <Col xs={2} style={{marginRight: "20px"}}>
+                                        <Image
+                                            src={profile.profilePic || "/uploads/default_profile.png"}
+                                            style={{width:"100px"}}
+                                            rounded
+                                            fluid
+                                        />
                                     </Col>
                                     <Col>
                                         <Row style={{display: "flex", gap: "20px", padding:"20px"}}>
                                             <h5>@{profile.username}</h5>
                                             {(userInfo.isAdmin || userInfo._id === profile._id) &&
-                                                <Button variant="outline-secondary" size="sm" style={{fontWeight:"bold", color:"black"}} onClick={editButtonHandler}> Edit Profile </Button>
+                                                <Button
+                                                    variant="outline-secondary"
+                                                    size="sm"
+                                                    style={{fontWeight:"bold", color:"black"}}
+                                                    onClick={editButtonHandler}>
+                                                    Edit Profile
+                                                </Button>
                                             }
                                         </Row>
                                         <Row>
-                                            <ul style={{display: "flex", gap: "10px", listStyle: "none", padding:"20px", paddingBottom:0, marginBottom:0}}>
+                                            <ul
+                                                style={{
+                                                    display: "flex",
+                                                    gap: "10px",
+                                                    listStyle: "none",
+                                                    padding:"20px",
+                                                    paddingBottom:0,
+                                                    marginBottom:0
+                                                }}>
                                                 <li>
-                                                    <span style={{marginRight:"10px", fontWeight:"bold"}}>{profile.posts.length}</span> <Badge variant="dark">Posts</Badge>
+                                                    <span
+                                                        style={{
+                                                            marginRight:"10px",
+                                                            fontWeight:"bold"
+                                                        }}>
+                                                        {profile.posts.length}</span>
+                                                        <Badge variant="dark">Posts</Badge>
                                                 </li>
                                                 <li>
-                                                    <span style={{marginRight:"10px", fontWeight:"bold"}}>{profile.followers.length}</span> <Badge variant="dark">Followers</Badge>
+                                                    <span
+                                                        style={{
+                                                            marginRight:"10px",
+                                                            fontWeight:"bold"
+                                                        }}>
+                                                        {profile.followers.length}</span>
+                                                        <Badge variant="dark">Followers</Badge>
                                                 </li>
                                                 <li>
-                                                    <span style={{marginRight:"10px", fontWeight:"bold"}}>{profile.followings.length}</span> <Badge variant="dark">Followings</Badge>
+                                                    <span
+                                                        style={{
+                                                            marginRight:"10px",
+                                                            fontWeight:"bold"
+                                                        }}>
+                                                        {profile.followings.length}</span>
+                                                        <Badge variant="dark">Followings</Badge>
                                                 </li>
                                             </ul>
                                         </Row>
                                         <Row style={{padding:"20px"}}>
-                                            <Button variant="primary" style={{borderRadius:"5px", width:"90px", height:"30px", lineHeight:0}}> Follow </Button>
+                                            <Button
+                                                variant="primary"
+                                                style={{
+                                                    borderRadius:"5px",
+                                                    width:"90px",
+                                                    height:"30px",
+                                                    lineHeight:0
+                                                }}> Follow </Button>
                                         </Row>   
-                                        <Row>
+                                        <Row style={{paddingLeft:"20px"}}>
                                             <h5>{profile.bio}</h5>
                                         </Row>
-                                        <Row>
-                                            <a href={profile.website}>{profile.website}</a>
+                                        <Row style={{paddingLeft:"20px"}}>
+                                            <a
+                                                href={profile.website}
+                                                target="_blank"
+                                                rel="noreferrer">
+                                                {profile.website}
+                                            </a>
                                         </Row>
                                     </Col>
                                 </Row>

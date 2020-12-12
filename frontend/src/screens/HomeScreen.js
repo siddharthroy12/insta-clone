@@ -14,7 +14,7 @@ const HomeScreen = ({history}) => {
     const [uploading, setUploading] = useState(false)
     const redirect = '/login'
     const userLogin = useSelector(state => state.userLogin)
-    const { loading, error, userInfo } = userLogin
+    const { userInfo } = userLogin
     const feed = useSelector(state => state.feed)
     const { feed: posts, loading: feedLoading } = feed
 
@@ -65,7 +65,12 @@ const HomeScreen = ({history}) => {
                             <Form onSubmit={submitButtonHandler}>
                                 <Form.Group controlId="body">
                                     <Form.Label>Post Something</Form.Label>
-                                    <Form.Control type="text" placeholder="How was your day?" value={body} onChange={e => setBody(e.target.value)}/>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="How was your day?"
+                                        value={body}
+                                        onChange={e => setBody(e.target.value)}
+                                    />
                                 </Form.Group>
                                 <Form.Group controlId='image' className="file-input">
                                         <label htmlFor="image-file"><BsFillImageFill /></label>
@@ -75,9 +80,14 @@ const HomeScreen = ({history}) => {
                                         </Form.File>
                                 </Form.Group>
                                 {uploading && <p>Uploading...</p>}
-                                {image !== "" && <Image src={image} style={{height: "500px", marginBottom:"20px"}}/>}
+                                {image !== "" && <Image
+                                    src={image}
+                                    style={{height: "500px", marginBottom:"20px"}}
+                                />}
                                 <div className="post-buttons">
-                                    <Button variant="primary" type="submit" disabled={body.trim() === ''}>
+                                    <Button variant="primary"
+                                        type="submit"
+                                        disabled={body.trim() === ''}>
                                         Submit
                                     </Button>
                                 </div>

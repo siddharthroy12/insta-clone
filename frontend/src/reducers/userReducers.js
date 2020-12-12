@@ -9,6 +9,9 @@ import {
     USER_PROFILE_REQUEST,
     USER_PROFILE_FAIL,
     USER_PROFILE_SUCCESS,
+    UPDATE_USER_PROFILE_REQUEST,
+    UPDATE_USER_PROFILE_SUCCESS,
+    UPDATE_USER_PROFILE_FAIL
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = { }, action) => {
@@ -16,6 +19,7 @@ export const userLoginReducer = (state = { }, action) => {
         case USER_LOGIN_REQUEST:
             return { loading: true }
         case USER_LOGIN_SUCCESS:
+            localStorage.setItem('userInfo', JSON.stringify(action.payload))
             return { loading: false, userInfo: action.payload}
         case USER_LOGIN_FAIL:
             return { loading: false, error: action.payload}
@@ -47,6 +51,19 @@ export const userProfileReducer = (state = { }, action) => {
             return { loading: false, userProfile: action.payload}
         case USER_PROFILE_FAIL:
             return { loading: false, error: action.payload}
+        default:
+            return state
+    }
+}
+
+export const userProfileUpdateReducer = (state = { }, action) => {
+    switch (action.type) {
+        case UPDATE_USER_PROFILE_REQUEST:
+            return { loading: true }
+        case UPDATE_USER_PROFILE_SUCCESS:
+            return { loading: false, userProfile: action.payload, success: true}
+        case UPDATE_USER_PROFILE_FAIL:
+            return { loading: false, error: action.payload, success: false}
         default:
             return state
     }
