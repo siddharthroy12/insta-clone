@@ -120,7 +120,8 @@ const PostCard = (props) => {
                         {post.likes.length}
                         <Button
                             variant="outline-danger"
-                            className="like-comment">
+                            className="like-comment"
+                            as={Link} to={`/post/${post._id}`}>
                             <BiComment />
                         </Button>
                         {post.comments.length}

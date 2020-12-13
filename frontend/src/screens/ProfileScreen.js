@@ -134,7 +134,7 @@ const ProfileScreen = ({ match, history }) => {
                                                 <br></br>
                                                 {profile.posts.length === 0 ? <p>No Post</p> :
                                                 profile.posts.map(post => {
-                                                    return <PostCard id={post} key={post._id}/>
+                                                    return <PostCard id={post} key={post}/>
                                                 })}
                                             </Tab>
                                             <Tab eventKey="Saved" title="Saved">
