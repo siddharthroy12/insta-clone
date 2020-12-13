@@ -14,6 +14,7 @@ const ProfileUpdateScreen = ({ history, match }) => {
     const [website, setWebsite] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
     const [profilePic, setProfilePic] = useState('')
+    const [profileUpdated, setProfileUpdated] = useState(false)
 
     const dispatch = useDispatch()
     const redirect = '/login'
@@ -27,7 +28,7 @@ const ProfileUpdateScreen = ({ history, match }) => {
     const { success: userProfileUpdateSuccess } = userProfileUpdate
 
     useEffect(() => {
-        if (userProfileUpdateSuccess) {
+        if (profileUpdated) {
             history.push(`/profile/${profile._id}`)
         }
         if (!userInfo) {
@@ -78,6 +79,7 @@ const ProfileUpdateScreen = ({ history, match }) => {
                 profilePic
             ))
         }
+        setProfileUpdated(true)
     }
 
     const uploadFileHandler = async (e) => {
