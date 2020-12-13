@@ -36,7 +36,7 @@ app.use('/uploads', express.static('uploads'))
 
 // Serve build in production mode
 if (process.env.NODE_ENV === 'production') {
-    app.use('frontend/build')
+    app.use(express.static('frontend/build'))
     app.get('*', (req, res) => res.sendFile('frontend/build/index.html'))
 } else {
     app.get('/', (req, res) => {
