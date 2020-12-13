@@ -14,6 +14,7 @@ const PostCard = (props) => {
     const [deleted, setDeleted] = useState(false)
     const [loading, setLoading] = useState(true)
     const [post, setPost] = useState(postData ? postData : null)
+    const [saved, setSaved] = useState(false)
     
     async function fetchPost(id) {
         const { data } = await axios.get(`/api/posts/${id}`)
@@ -37,6 +38,7 @@ const PostCard = (props) => {
             setLoading(true)
             const { data } = await axios.get(`/api/users/${post.user}`)
             setUserDetail(data)
+            setSaved(data.saved.includes(post._id))
             setLoading(false)
         }
         if (!userDetail && post) {
@@ -58,6 +60,17 @@ const PostCard = (props) => {
     function deleteButtonHandler() {
         dispatch(deletePost(post._id))
         setDeleted(true)
+    }
+
+    async function saveHandler() {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization' : `Bearer ${profile.token}`
+            }
+        }
+        await axios.post(`/api/posts/save/${post._id}`, {}, config)
+        setSaved(!saved)
     }
 
     return (
@@ -83,7 +96,9 @@ const PostCard = (props) => {
                             <Dropdown.Item as={Link} to={`/profile/${userDetail._id}`}>
                                 View Profile
                             </Dropdown.Item>
-                            <Dropdown.Item>Save</Dropdown.Item>
+                            <Dropdown.Item onClick={saveHandler}>
+                                { !saved ? 'Save' : 'Remove from saved' }
+                            </Dropdown.Item>
                             {(profile.isAdmin || profile._id === post.user) &&
                                 <Dropdown.Item onClick={deleteButtonHandler}>
                                     Delete
