@@ -59,7 +59,7 @@ const PostScreen = ({ match }) => {
                             <Form.Group controlId="comment">
                                 <Form.Control
                                     type="text"
-                                    placeholder="hmmmmm"
+                                    placeholder="Create a comment..."
                                     value={comment}
                                     onChange={e => setComment(e.target.value)}
                                 />
