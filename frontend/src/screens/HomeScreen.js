@@ -7,6 +7,7 @@ import PostCard from '../components/PostCard'
 import Loader from '../components/Loader'
 import { fetchFeed } from '../actions/feedAction'
 import { createPost } from '../actions/postActions'
+import UserCard from '../components/UserCard'
 
 const HomeScreen = ({history}) => {
     const [body, setBody] = useState('')
@@ -17,6 +18,7 @@ const HomeScreen = ({history}) => {
     const { userInfo } = userLogin
     const feed = useSelector(state => state.feed)
     const { feed: posts, loading: feedLoading } = feed
+    const [users, setUsers] = useState(null)
 
     const dispatch = useDispatch()
 
@@ -27,7 +29,10 @@ const HomeScreen = ({history}) => {
         if (!feedLoading && !posts) {
             dispatch(fetchFeed())
         }
-    }, [history, userInfo, redirect, dispatch, feedLoading, posts])
+        if (!users) {
+            fetchUsers()
+        }
+    }, [history, userInfo, redirect, dispatch, feedLoading, posts, users])
 
     const uploadFileHandler = async (e) => {
         const file = e.target.files[0]
@@ -47,6 +52,11 @@ const HomeScreen = ({history}) => {
             console.error(error)
             setUploading(false)
         }
+    }
+
+    async function fetchUsers() {
+        const { data } = await axios.get('/api/users')
+        setUsers(data)
     }
 
     function submitButtonHandler(e) {
@@ -99,7 +109,19 @@ const HomeScreen = ({history}) => {
                     ))}
                 </Col>
                 <Col xs={4} className="extras">
-                    <p>Other Suffs</p>
+                    <h3>Admins</h3>
+                    {users ? (
+                        users.map(user => {
+                            if (user.isAdmin) {
+                                return <UserCard user={user} key={user._id}/>
+                            }
+                            return null
+                        })
+                    ) : <Loader /> }
+                    <h3>All Users</h3>
+                    {users ? (
+                        users.map(user => <UserCard user={user} key={user._id}/>)
+                    ) : <Loader /> }
                 </Col>
             </Row>
         </Container>

@@ -35,9 +35,9 @@ const UserCard = ({ user }) => {
                     }} className="post-header" to={`/profile/${user._id}`}>
                     <Image
                         src={user.profilePic}
-                        style={{width: "50px", marginRight: "20px"}}
+                        style={{width: "30px", marginRight: "20px"}}
                     />
-                    <h3>@{user.username}</h3>
+                    <h5>@{user.username}</h5>
                 </Link>
                 <div>
                     <p onClick={followButtonHandler}

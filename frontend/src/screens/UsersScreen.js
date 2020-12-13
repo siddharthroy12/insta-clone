@@ -18,8 +18,6 @@ const UserScreen = () => {
         }
     })
 
-    console.log(users)
-
     return (
         <Container>
             <Row className="justify-content-center">
