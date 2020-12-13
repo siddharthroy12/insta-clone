@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Button, Card, Image, Tab, Tabs, Badge } from 'react-bootstrap'
 import { getProfile } from '../actions/userActions'
@@ -6,6 +7,7 @@ import Loader from '../components/Loader'
 import PostCard from '../components/PostCard'
 
 const ProfileScreen = ({ match, history }) => {
+    const [followed, setFollowed] = useState(false)
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
@@ -29,11 +31,27 @@ const ProfileScreen = ({ match, history }) => {
             if (profile._id !== match.params.id) {
                 dispatch(getProfile(match.params.id))
             }
+            axios.get(`/api/users/${userInfo._id}`)
+                .then(res => {
+                    setFollowed(res.data.followings.includes(profile._id))
+                })
+                .catch(err => console.error(err))
         }
     }, [history, userInfo, dispatch, match.params.id, profile])
 
     function editButtonHandler() {
         history.push(`/updateprofile/${profile._id}`)
+    }
+
+    async function followButtonHandler() {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization' : `Bearer ${userInfo.token}`
+            }
+        }
+        await axios.post(`/api/users/${profile._id}`, {}, config)
+        setFollowed(!followed)
     }
 
     return (
@@ -107,12 +125,13 @@ const ProfileScreen = ({ match, history }) => {
                                         <Row style={{padding:"20px"}}>
                                             <Button
                                                 variant="primary"
+                                                onClick={followButtonHandler}
                                                 style={{
                                                     borderRadius:"5px",
-                                                    width:"90px",
+                                                    width:"auto",
                                                     height:"30px",
                                                     lineHeight:0
-                                                }}> Follow </Button>
+                                                }}> {!followed ? 'Follow' : 'Unfollow'} </Button>
                                         </Row>   
                                         <Row style={{paddingLeft:"20px"}}>
                                             <h5>{profile.bio}</h5>

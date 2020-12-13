@@ -80,14 +80,14 @@ const PostCard = (props) => {
                     {deleted ? <Card.Text><Message variant="danger">Deleted</Message></Card.Text> : (
                     <div>
                         <Card.Title style={{display:"flex", justifyContent: "space-between"}}>
-                    <div>
+                    <Link to={`/profile/${userDetail._id}`} className="post-header">
                         <Image
                             src={userDetail.profilePic}
                             roundedCircle
                             style={{width: "50px", marginRight: "20px"}}
                         />
                         @{userDetail.username}
-                    </div>
+                    </Link>
                     <Dropdown>
                         <Dropdown.Toggle variant="outline-black">
                             <AiOutlineMenu />
