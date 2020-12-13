@@ -73,7 +73,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 // @desc Get user profile
 // @route GET /api/users/:id
-// @access Private
+// @access Public
 const getUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id).select('-password')
     if (!user) {

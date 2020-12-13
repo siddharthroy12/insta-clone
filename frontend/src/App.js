@@ -7,6 +7,7 @@ import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import ProfileUpdateScreen from './screens/ProfileUpdateScreen'
 import PostScreen from './screens/PostScreen'
+import UserScreen from './screens/UsersScreen'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/updateprofile/:id' component={ProfileUpdateScreen} exact />
         <Route path='/profile/:id' component={ProfileScreen} exact />
         <Route path='/profile' component={ProfileScreen} exact />
+        <Route path='/peoples' component={UserScreen} exact />
         <Route path='/post/:id' component={PostScreen} exact />
         <Route path='/' component={HomeScreen} exact />
       </main>
