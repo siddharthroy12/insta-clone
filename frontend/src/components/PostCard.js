@@ -96,11 +96,14 @@ const PostCard = (props) => {
                         <p style={{fontFamily: "sans-serif"}}>{post.body}</p>
                     </Card.Text>
                     {post.image !== "" &&
-                        <Card.Img
-                            variant="bottom"
-                            src={post.image}
-                            style={{height:"400px", objectFit: "cover", marginBottom:"20px"}}
-                        />
+                        <a style={{display:"block"}} href={post.image} target="_blank"
+                            rel="noreferrer">
+                            <Card.Img
+                                variant="bottom"
+                                src={post.image}
+                                style={{height:"400px", objectFit: "cover", marginBottom:"20px"}}
+                            />
+                        </a>
                     }
                     <div style={{display: "flex", gap: "20px", alignItems: "center"}}>
                         {liked ? <Button
