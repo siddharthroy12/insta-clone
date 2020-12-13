@@ -24,11 +24,11 @@ const ProfileScreen = ({ match, history }) => {
             if (match.params.id) {
                 dispatch(getProfile(match.params.id))
             } else {
-               dispatch(getProfile())
+               dispatch(getProfile(userInfo._id))
             }
         }
         if (profile) {
-            if (profile._id !== match.params.id) {
+            if (profile._id !== match.params.id && match.params.id) {
                 dispatch(getProfile(match.params.id))
             }
             axios.get(`/api/users/${userInfo._id}`)

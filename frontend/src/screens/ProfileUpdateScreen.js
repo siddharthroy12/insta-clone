@@ -62,8 +62,8 @@ const ProfileUpdateScreen = ({ history, match }) => {
         dispatch,
         match.params.id,
         profile,
-        userProfileUpdateSuccess
-    
+        userProfileUpdateSuccess,
+        profileUpdated
     ])
 
     function submitHandler(e) {
