@@ -116,7 +116,11 @@ const PostCard = (props) => {
                             <Card.Img
                                 variant="bottom"
                                 src={post.image}
-                                style={{height:"400px", objectFit: "cover", marginBottom:"20px"}}
+                                style={{
+                                    height:"400px",
+                                    objectFit: "cover",
+                                    marginBottom:"20px",
+                                }}
                             />
                         </a>
                     }

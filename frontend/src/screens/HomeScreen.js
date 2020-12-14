@@ -91,7 +91,10 @@ const HomeScreen = ({history}) => {
                                 {uploading && <p>Uploading...</p>}
                                 {image !== "" && <Image
                                     src={image}
-                                    style={{height: "500px", marginBottom:"20px"}}
+                                    style={{
+                                        marginBottom:"20px",
+                                        maxWidth: "688px"
+                                    }}
                                 />}
                                 <div className="post-buttons">
                                     <Button variant="primary"
