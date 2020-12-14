@@ -44,7 +44,6 @@ const HomeScreen = ({history}) => {
             const config = {
             }
             const { data } = await axios.post('/api/upload', formData, config)
-            console.log(data)
             setImage(data.data.image.url)
             setUploading(false)
             
