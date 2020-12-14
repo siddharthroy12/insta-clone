@@ -8,12 +8,6 @@ const postRoutes = require('./routes/postRoutes')
 const uploadRoute = require('./routes/uploadRoute')
 var fs = require('fs');
 
-// Create uploads dir if doesn't exist
-var dir = './uploads';
-if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-}
-
 // Load environment variables from .env
 require('dotenv').config()
 

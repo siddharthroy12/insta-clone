@@ -42,12 +42,12 @@ const HomeScreen = ({history}) => {
 
         try {
             const config = {
-                'Content-Type': 'multipart/form-data'
             }
             const { data } = await axios.post('/api/upload', formData, config)
-            setImage(data)
+            console.log(data)
+            setImage(data.data.image.url)
             setUploading(false)
-        
+            
         } catch (error) {
             console.error(error)
             setUploading(false)

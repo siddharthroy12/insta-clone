@@ -89,10 +89,9 @@ const ProfileUpdateScreen = ({ history, match }) => {
 
         try {
             const config = {
-                'Content-Type': 'multipart/form-data'
             }
             const { data } = await axios.post('/api/upload', formData, config)
-            setProfilePic(data)
+            setProfilePic(data.data.image.url)
         
         } catch (error) {
             console.error(error)

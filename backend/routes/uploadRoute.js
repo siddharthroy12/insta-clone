@@ -1,39 +1,13 @@
-const path = require('path')
 const express = require('express')
-const multer = require('multer')
+const request = require('request')
 
 const router = express.Router()
 
-const storage = multer.diskStorage({
-    destination(req, file, cb) {
-        cb(null, 'uploads/')
-    },
-    filename(req, file, cb) {
-        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
+router.post('/', (req, res) => {
+    const forwardReqConfig = {
+        url: `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_KEY}`,
     }
-})
-
-function checkFileType(file, cb) {
-    const filetypes = /jpg|jpeg|png/
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
-    const mimetype = filetypes.test(file.mimetype)
-
-    if (extname && mimetype) {
-        return cb(null, true)
-    } else {
-        cb('Images only')
-    }
-}
-
-const upload = multer({
-    storage,
-    fileFilter: function(req, file, cp) {
-        checkFileType(file, cp)
-    }
-})
-
-router.post('/', upload.single('image'), (req, res) => {
-    res.send(`/${req.file.path}`)
+    req.pipe(request.post(forwardReqConfig)).pipe(res)
 })
 
 module.exports = router
