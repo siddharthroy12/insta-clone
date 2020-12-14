@@ -19,6 +19,8 @@ A clone of Facebook's Instagram app where you can login/register, create new pos
 
 > `JWT_SECRET = your secret key here`
 
+> `IMGBB_KEY = imgbb api key`
+
 ## Todo
 
 -   [x] User can register for an account storing their name, email/username and password then login to the app using their credentials
