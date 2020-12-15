@@ -63,7 +63,7 @@ const Header = () => {
                         />
                         {dropdownIsOpen && (
                             <ListGroup onClick={e => setDropdownIsOpen(false)}>
-                                <LinkContainer to='/profile'>
+                                <LinkContainer to={`/profile/${userInfo._id}`}>
                                     <ListGroup.Item>
                                         <CgProfile /> Profile
                                     </ListGroup.Item>

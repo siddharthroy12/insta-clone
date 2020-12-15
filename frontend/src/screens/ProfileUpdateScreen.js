@@ -98,6 +98,8 @@ const ProfileUpdateScreen = ({ history, match }) => {
         }
     }
 
+    console.log(email)
+
     return (
         <Container>
             <Row className="justify-content-center">
