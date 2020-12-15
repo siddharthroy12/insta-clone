@@ -98,7 +98,7 @@ const ProfileUpdateScreen = ({ history, match }) => {
         }
     }
 
-    console.log(email)
+    console.log(bio)
 
     return (
         <Container>

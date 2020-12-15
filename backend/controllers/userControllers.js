@@ -87,6 +87,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 // @desc Update user profile
 // @route PUT /api/users/
+// @access Private
 const updateUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id)
 
@@ -154,8 +155,8 @@ const updateUser = asyncHandler(async (req, res) => {
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
         user.isAdmin = req.body.isAdmin
-        user.bio = req.body.bio || user.bio
-        user.website = req.body.website || user.website,
+        user.bio = req.body.bio.trim()
+        user.website = req.body.website.trim()
         user.profilePic = req.body.profilePic || user.profilePic
 
         const updatedUser = await user.save()
@@ -164,7 +165,8 @@ const updateUser = asyncHandler(async (req, res) => {
             _id: updateUser._id,
             name: updateUser.name,
             email: updatedUser.email,
-            isAdmin: updatedUser.isAdmin
+            isAdmin: updatedUser.isAdmin,
+            profilePic: user.profilePic
         })
     }
 })
