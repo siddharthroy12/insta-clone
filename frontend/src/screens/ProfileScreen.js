@@ -123,7 +123,8 @@ const ProfileScreen = ({ match, history }) => {
                                             </ul>
                                         </Row>
                                         <Row style={{padding:"20px"}}>
-                                            <Button
+                                            {match.params.id !== userInfo._id && (
+                                                <Button
                                                 variant="primary"
                                                 onClick={followButtonHandler}
                                                 style={{
@@ -132,6 +133,7 @@ const ProfileScreen = ({ match, history }) => {
                                                     height:"30px",
                                                     lineHeight:0
                                                 }}> {!followed ? 'Follow' : 'Unfollow'} </Button>
+                                            )}
                                         </Row>   
                                         <Row style={{paddingLeft:"20px"}}>
                                             <h5>{profile.bio}</h5>
